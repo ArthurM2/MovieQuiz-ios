@@ -41,6 +41,23 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         presenter = MovieQuizPresenter(viewController: self)
     }
     
+    func presentAlert(_ alert: AlertModel) {
+        alertPresenter?.show(model: alert)
+    }
+    
+    // MARK: - Image Setting
+    func highlightImageBorder(isCorrectAnswer: Bool) {
+        answerButtons(isEnabled: false)
+        
+        imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
+        imageView.layer.borderWidth = 8 // толщина рамки
+        imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
+        
+        UIView.animate(withDuration: 2.0, animations: {
+            self.imageView.layer.borderColor = UIColor.clear.cgColor
+        })
+    }
+    
     // MARK: - Internal Methods
     func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -80,24 +97,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
             })
         
         alertPresenter?.show(model: viewModel)
-    }
-    
-    func presentAlert(_ alert: AlertModel) {
-        alertPresenter?.show(model: alert)
-    }
-    
-    
-    
-    func highlightImageBorder(isCorrectAnswer: Bool) {
-        answerButtons(isEnabled: false)
-        
-        imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
-        imageView.layer.borderWidth = 8 // толщина рамки
-        imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
-        
-        UIView.animate(withDuration: 2.0, animations: {
-            self.imageView.layer.borderColor = UIColor.clear.cgColor
-        })
     }
 
     // MARK: - Actions
