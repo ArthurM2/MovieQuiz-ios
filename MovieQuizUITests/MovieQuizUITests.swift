@@ -1,10 +1,3 @@
-//
-//  MovieQuizUITests.swift
-//  MovieQuizUITests
-//
-//  Created by arthur on 10.08.2023.
-//
-
 import XCTest
 
 final class MovieQuizUITests: XCTestCase {
@@ -30,11 +23,16 @@ final class MovieQuizUITests: XCTestCase {
     func testYesButton() throws {
         let firstPoster = app.images["Poster"]
         let firstPosterData = firstPoster.screenshot().pngRepresentation
+        firstPoster.waitForExistence(timeout: 3)
+        XCTAssert(firstPoster.exists)
+        
         
         app.buttons["Yes"].tap()
         
         let secondPoster = app.images["Poster"]
         let secondPosterData = secondPoster.screenshot().pngRepresentation
+        secondPoster.waitForExistence(timeout: 3)
+        XCTAssert(secondPoster.exists)
         
         let indexLabel = app.staticTexts["Index"]
         
@@ -46,13 +44,17 @@ final class MovieQuizUITests: XCTestCase {
         let firstPoster = app.images["Poster"]
         let firstPosterData = firstPoster.screenshot().pngRepresentation
         
+        
         app.buttons["Yes"].tap()
         
         let secondPoster = app.images["Poster"]
         let secondPosterData = secondPoster.screenshot().pngRepresentation
         
+        
         let indexLabel = app.staticTexts["Index"]
         
+        XCTAssertTrue(firstPoster.exists)
+        XCTAssertTrue(secondPoster.exists)
         XCTAssertNotEqual(firstPoster, secondPoster)
         XCTAssertEqual(indexLabel.label, "2/10")
     }
@@ -62,7 +64,7 @@ final class MovieQuizUITests: XCTestCase {
             app.buttons["Yes"].tap()
         }
         
-        let alert = app.alerts["Alert Result"]
+        let alert = app.alerts["AlertResult"]
         
         XCTAssertTrue(alert.exists)
         XCTAssertTrue(alert.label == "Этот раунд окончен")
@@ -74,7 +76,7 @@ final class MovieQuizUITests: XCTestCase {
             app.buttons["Yes"].tap()
         }
         
-        let alert = app.alerts["Alert Result"]
+        let alert = app.alerts["AlertResult"]
         alert.buttons.firstMatch.tap()
         
         let indexLabel = app.staticTexts["Index"]

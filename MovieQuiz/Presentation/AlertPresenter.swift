@@ -26,7 +26,7 @@ final class AlertPresenter: AlertPresenterProtocol {
                 model.completion()
             }
 
-        alert.view.accessibilityIdentifier = "Alert Result"
+        alert.view.accessibilityIdentifier = "AlertResult"
         alert.addAction(action)
     
         delegate?.present(alert, animated: true, completion: nil)
