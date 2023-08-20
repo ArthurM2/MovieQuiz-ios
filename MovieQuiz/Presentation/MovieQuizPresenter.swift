@@ -48,7 +48,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             correctAnswers += 1
         }
     }
-
     
     func yesButtonClicked() {
         didAnswer(isYes: true)
